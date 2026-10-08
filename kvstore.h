@@ -1,0 +1,22 @@
+#ifndef KVSTORE_KVSTORE_H
+#define KVSTORE_KVSTORE_H
+
+#include <string>
+#include <unordered_map>
+#include <optional>
+
+class KVStore {
+public:
+    KVStore(const std::string& db_name);
+    void set(const std::string& key, const std::string& value);
+    std::optional<std::string> get(const std::string& key) const;
+    void del(const std::string& key);
+    void compact();
+
+private:
+    std::string filename;
+    void apply_command(const std::string& line);
+    std::unordered_map<std::string, std::string> store;
+};
+
+#endif //KVSTORE_KVSTORE_H
